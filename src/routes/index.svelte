@@ -5,9 +5,24 @@
     import TimeDisplay from "$lib/components/TimeDisplay.svelte";
 
     import {default as  relativeTime} from "dayjs/plugin/relativeTime";
+import { onMount } from "svelte";
     dayjs.extend(relativeTime)
 
-    let timeDisplayed = dayjs("2021-09-01 13:00");
+    let timeDisplayed = dayjs("TODO");
+
+    onMount(()=>{
+        (async () => {
+		try {
+			let response = await fetch('https://covid-announcement-backend.host.qrl.nz/api/get-announcement-time');
+			let body = await response.json();
+			console.log('Date pushed', body);
+			timeDisplayed = dayjs(body['date_of_announcement']);
+            
+		} catch (e) {
+			console.log('It shit itself', e);
+		}
+        })();
+    })
 
 </script>
 <main>
