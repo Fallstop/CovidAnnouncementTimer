@@ -9,6 +9,7 @@ import { onMount } from "svelte";
     dayjs.extend(relativeTime)
 
     let timeDisplayed = dayjs("TODO");
+    let loaded = false;
 
     onMount(()=>{
         (async () => {
@@ -17,6 +18,7 @@ import { onMount } from "svelte";
 			let body = await response.json();
 			console.log('Date pushed', body);
 			timeDisplayed = dayjs(body['date_of_announcement']);
+            loaded = true
             
 		} catch (e) {
 			console.log('It shit itself', e);
@@ -27,8 +29,12 @@ import { onMount } from "svelte";
 </script>
 <main>
     <div>
+        {#if loaded}
         <TimeDisplay bind:timeDisplayed/>
         <CountDown bind:timeDisplayed/>
+        {:else}
+            hmm yes loading here
+        {/if}
     </div>
 </main>
 
