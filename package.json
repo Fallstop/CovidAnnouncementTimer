@@ -29,6 +29,7 @@
   },
   "type": "module",
   "dependencies": {
-    "dayjs": "^1.10.6"
+    "dayjs": "^1.10.6",
+    "svelte-loading-spinners": "^0.1.7"
   }
 }

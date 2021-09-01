@@ -1,14 +1,16 @@
 <script lang="ts">
     import {default as dayjs} from "dayjs"
+    import {default as  relativeTime} from "dayjs/plugin/relativeTime.js";
+    import { BarLoader } from 'svelte-loading-spinners'
+
     
     import CountDown from "$lib/components/CountDown.svelte";
     import TimeDisplay from "$lib/components/TimeDisplay.svelte";
 
-    import {default as  relativeTime} from "dayjs/plugin/relativeTime.js";
-import { onMount } from "svelte";
+    import { onMount } from "svelte";
     dayjs.extend(relativeTime)
 
-    let timeDisplayed = dayjs("TODO");
+    let timeDisplayed;
     let loaded = false;
 
     onMount(()=>{
@@ -17,7 +19,11 @@ import { onMount } from "svelte";
 			let response = await fetch('https://covid-announcement-backend.host.qrl.nz/api/get-announcement-time');
 			let body = await response.json();
 			console.log('Date pushed', body);
-			timeDisplayed = dayjs(body['date_of_announcement']);
+            if (body['date_of_announcement']!==null) {
+                timeDisplayed = dayjs(body['date_of_announcement']);
+                loaded = true
+
+            }
             loaded = true
             
 		} catch (e) {
@@ -30,10 +36,14 @@ import { onMount } from "svelte";
 <main>
     <div>
         {#if loaded}
-        <TimeDisplay bind:timeDisplayed/>
-        <CountDown bind:timeDisplayed/>
+            {#if typeof timeDisplayed !== "undefined"}
+                <TimeDisplay bind:timeDisplayed/>
+                <CountDown bind:timeDisplayed/>
+            {:else}
+                <h3>Hasn't been announced yet</h3>
+            {/if}
         {:else}
-            hmm yes loading here
+        <BarLoader size="5" color="currentColor" unit="em" duration="1s"></BarLoader>
         {/if}
     </div>
 </main>
