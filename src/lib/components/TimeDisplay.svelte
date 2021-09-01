@@ -4,19 +4,21 @@
     export let timeDisplayed: Dayjs;
 </script>
 
-<span class="mono">{timeDisplayed.format("h:mm:ss A")}</span>
+<h1 class="mono">{timeDisplayed.format("h:mm A")}</h1>
 
 <style lang="scss">
-    span {
+    h1 {
+        font-weight: 400;
         font-size: 10rem;
+        margin: 0;
     }
     @media (max-width: 750px) {
-        span {
-            font-size: 3rem;
+        h1 {
+            font-size: 4rem;
         }
     }
     @media (min-width: 750px) and (max-width: 1000px) {
-        span {
+        h1 {
             font-size: 5rem;
         }
     }

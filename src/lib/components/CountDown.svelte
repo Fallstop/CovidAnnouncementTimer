@@ -4,3 +4,21 @@
     export let timeDisplayed: Dayjs;
 </script>
 <h2>{timeDisplayed.fromNow()}</h2>
+
+<style lang="scss">
+    h2 {
+        font-weight: 400;
+
+        font-size: 5rem;
+    }
+    @media (max-width: 750px) {
+        h2 {
+            font-size: 2rem;
+        }
+    }
+    @media (min-width: 750px) and (max-width: 1000px) {
+        h2 {
+            font-size: 3rem;
+        }
+    }
+</style>

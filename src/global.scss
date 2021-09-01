@@ -4,6 +4,10 @@ body {
     margin: 0;
 
 }
+* {
+    box-sizing: border-box;
+
+}
 
 .mono {
     font-family: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;

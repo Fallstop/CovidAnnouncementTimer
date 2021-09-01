@@ -43,7 +43,7 @@
                 <h3>Hasn't been announced yet</h3>
             {/if}
         {:else}
-        <BarLoader size="5" color="currentColor" unit="em" duration="1s"></BarLoader>
+            <BarLoader size="5" color="currentColor" unit="em" duration="1s"></BarLoader>
         {/if}
     </div>
 </main>
@@ -74,6 +74,13 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            text-align: center;
         }
+    }
+    @media (max-width: 750px) {
+        main div {
+            width: 100%;
+            padding: 1em;
+        } 
     }
 </style>
