@@ -4,7 +4,7 @@
     import CountDown from "$lib/components/CountDown.svelte";
     import TimeDisplay from "$lib/components/TimeDisplay.svelte";
 
-    import {default as  relativeTime} from "dayjs/plugin/relativeTime";
+    import {default as  relativeTime} from "dayjs/plugin/relativeTime.js";
 import { onMount } from "svelte";
     dayjs.extend(relativeTime)
 
