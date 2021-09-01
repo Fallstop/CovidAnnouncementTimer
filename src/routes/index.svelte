@@ -11,9 +11,10 @@
 
 </script>
 <main>
-    <TimeDisplay bind:timeDisplayed/>
-    <CountDown bind:timeDisplayed/>
-
+    <div>
+        <TimeDisplay bind:timeDisplayed/>
+        <CountDown bind:timeDisplayed/>
+    </div>
 </main>
 
 
@@ -24,5 +25,24 @@
         align-items: center;
         justify-content: center;
         min-height: 100vh;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+        background: repeating-linear-gradient(
+            45deg,
+            #ffcc00,
+            #ffcc00 50px,
+            #ffff 50px,
+            #ffff 100px,
+            );
+        div {
+            background: white;
+            width: 80%;
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
     }
 </style>
