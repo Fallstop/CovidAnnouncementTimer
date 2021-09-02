@@ -94,7 +94,9 @@
 					<h3>Hasn't been announced yet</h3>
 				{/if}
 			{:else}
-				<BarLoader size="5" color="currentColor" unit="em" duration="1s" />
+				<div class="loading-countdown-container">
+					<BarLoader size="5" color="currentColor" unit="em" duration="1s" />
+				</div>
 			{/if}
 			<p>
 				Looking for the NZ COVID daily update? We are too. By our estimates, the next update will be
@@ -205,7 +207,7 @@
 		.updates {
 			position: relative;
 			z-index: 10;
-			margin-top: -50vh;
+			margin-top: -45vh;
 			text-align: center;
 			background: linear-gradient(to bottom, #fff0 0, white 40vh);
 			padding-bottom: 1rem;
@@ -248,6 +250,12 @@
 	.content.loading {
 		--social-distance: 4em;
 	}
+
+	.loading-countdown-container {
+		min-height: 24rem;
+		display: flex;
+		align-items: center;
+	}
 	@media (max-width: 62rem) {
 		.gallery {
 			justify-content: center;
@@ -268,6 +276,12 @@
 		}
 		.content.loading {
 			--social-distance: 1em;
+		}
+
+		.loading-countdown-container {
+			min-height: 10rem;
+			display: flex;
+			align-items: center;
 		}
 
 		.gallery {
