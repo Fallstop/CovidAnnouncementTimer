@@ -23,7 +23,7 @@
 				console.log('Date pushed', body);
 				if (body['date_of_announcement'] !== null) {
 					timeDisplayed = dayjs(body['date_of_announcement']);
-					if (timeDisplayed.isBefore(dayjs().subtract(3, 'h'))) {
+					if (timeDisplayed.isBefore(dayjs().subtract(0, 'h'))) {
 						// Give three hour leeway, then start counting down to the next one
 						timeDisplayed = timeDisplayed.add(1, 'd').hour(13);
 						isPredicted = true;
@@ -43,7 +43,10 @@
 		{#if loaded}
 			{#if typeof timeDisplayed !== 'undefined'}
 				<TimeDisplay bind:timeDisplayed />
-				<CountDown bind:timeDisplayed />
+				<CountDown bind:timeDisplayed predicted="false" />
+				{#if isPredicted}
+					<p>*Predicted</p>
+				{/if}
 			{:else}
 				<h3>Hasn't been announced yet</h3>
 			{/if}
