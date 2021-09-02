@@ -75,7 +75,11 @@
 			{#if loaded}
 				{#if typeof timeDisplayed !== 'undefined'}
 					<TimeDisplay bind:timeDisplayed />
-					<CountDown bind:timeDisplayed predicted={isPredicted} />
+					{#if !liveVideoId}
+						<CountDown bind:timeDisplayed predicted={isPredicted} />
+					{:else}
+						<h2 class="live">(happening now)</h2>
+					{/if}
 				{:else}
 					<h3>Hasn't been announced yet</h3>
 				{/if}
@@ -147,8 +151,8 @@
 			justify-content: center;
 			flex-direction: column;
 			min-height: 100vh;
-			margin-left: calc(var(--social-distance) / 2);
-			margin-right: calc(var(--social-distance) / 2);
+			margin-left: calc(var(--social-distance));
+			margin-right: calc(var(--social-distance));
 			.countdown {
 				display: flex;
 				flex-direction: column;
@@ -157,15 +161,30 @@
 				text-align: center;
 			}
 
+			h2.live {
+				font-weight: 400;
+				font-size: 4rem;
+			}
+			@media (max-width: 750px) {
+				h2.live {
+					font-size: 2rem;
+				}
+			}
+			@media (min-width: 750px) and (max-width: 1000px) {
+				h2.live {
+					font-size: 3rem;
+				}
+			}
+
 			.spacer {
-				padding-top: 15em;
+				padding-top: 17vh;
 			}
 		}
 
 		.updates {
 			position: relative;
 			z-index: 10;
-			margin-top: -40rem;
+			margin-top: -50vh;
 			text-align: center;
 			background: linear-gradient(to bottom, transparent 0, white 30em);
 			padding-bottom: 1rem;
@@ -176,6 +195,7 @@
 
 			.invisible {
 				visibility: hidden;
+				transition: 0.25s ease height;
 			}
 
 			.more.live {
@@ -205,10 +225,29 @@
 	.content.loading {
 		--social-distance: 4em;
 	}
+	@media (max-width: 62rem) {
+		.gallery {
+			justify-content: center;
+			flex-direction: row;
+		}
+	}
 	@media (max-width: 750px) {
-		main div {
-			width: 100%;
-			padding: 1em;
+		.content {
+			--social-distance: 1.5em;
+			main .spacer {
+				padding-top: 35vh;
+			}
+		}
+		.content.loading {
+			--social-distance: 3em;
+		}
+
+		.gallery {
+			justify-content: center;
+		}
+
+		.invisible {
+			display: none;
 		}
 	}
 </style>
