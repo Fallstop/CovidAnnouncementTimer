@@ -17,6 +17,7 @@
 	$: isInPast = timeDisplayed.isBefore(dayjs().subtract(1, 'h'));
 	let liveVideoId;
 	let pastVideoIDs = [];
+	let anyPastVideos = true;
 
 	function sleep(ms) {
 		return new Promise((resolve) => setTimeout(resolve, ms));
@@ -39,6 +40,10 @@
 			let liveVideo = await liveVideoResp.json();
 			let pastVideos = await historicVideoResp.json();
 			pastVideoIDs = pastVideos['youtube_video_ids'];
+
+			// Check if there is any past videos
+			anyPastVideos = pastVideoIDs.map((x) => x !== null).reduce((acu, cur) => acu || cur);
+
 			const timeLeft = minLoadingTime.getTime() - Date.now();
 			if (timeLeft > 0) {
 				await sleep(timeLeft);
@@ -100,9 +105,11 @@
 			{/if}
 			<p>
 				Looking for the NZ COVID daily update? We are too. By our estimates, the next update will be
-				at {timeDisplayed.format('h:mm A')}, {timeDisplayed.fromNow()}. Until then, browse through
-				the previous updates below, or keep the tab open and we'll pull up the Ministry of Health's
-				live stream as soon as it appears.
+				at {timeDisplayed.format('h:mm A')}, {timeDisplayed.fromNow()}. Until then
+				{#if anyPastVideos}
+					, browse through the previous updates below, or keep the tab open and we'll pull up the
+					Ministry of Health's live stream as soon as it appears.
+				{/if}
 			</p>
 			<div class="spacer" />
 		</div>
@@ -117,12 +124,16 @@
 			autoplay={true}
 		/>
 		<div class="more">
-			<h3>Previous updates</h3>
-			<div class="gallery">
-				{#each pastVideoIDs as id}
-					<YouTube videoId={id} />
-				{/each}
-			</div>
+			{#if anyPastVideos}
+				<h3>Previous updates</h3>
+				<div class="gallery">
+					{#each pastVideoIDs as id}
+						{#if id !== null}
+							<YouTube videoId={id} />
+						{/if}
+					{/each}
+				</div>
+			{/if}
 		</div>
 		<footer>
 			<p>
