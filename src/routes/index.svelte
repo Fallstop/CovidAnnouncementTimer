@@ -114,11 +114,11 @@
 		<footer>
 			<p>
 				This project was developed by
-				<a href="https://jmw.nz/" target="_blank" referrerpolicy="no-referrer">Jasper</a>
+				<a href="https://jmw.nz/" target="_blank" rel="noreferrer">Jasper</a>
 				&amp;
-				<a href="https://zac.nz/" target="_blank" referrerpolicy="no-referrer">Zac</a>
+				<a href="https://zac.nz/" target="_blank" rel="noreferrer">Zac</a>
 				through
-				<a href="https://qrl.nz/" target="_blank" referrerpolicy="no-referrer">Questionable Research Labs </a>
+				<a href="https://qrl.nz/" target="_blank" rel="noreferrer">Questionable Research Labs </a>
 			</p>
 		</footer>
 	</div>
