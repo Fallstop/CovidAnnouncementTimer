@@ -58,7 +58,7 @@
 
 <style lang="scss">
 	main {
-		--social-distance: 2em;
+		--social-distance: 4em;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -81,7 +81,7 @@
 		}
 	}
 	main.loading {
-		--social-distance: 8em;
+		--social-distance: 16em;
 	}
 	@media (max-width: 750px) {
 		main div {
