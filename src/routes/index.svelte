@@ -25,7 +25,8 @@
 				console.log('Date pushed', body);
 				if (body['date_of_announcement'] !== null) {
 					timeDisplayed = dayjs(body['date_of_announcement']);
-					if (isInPast) {
+					// Can't use reactive variable because updates are batched
+					if (timeDisplayed.isBefore(dayjs().subtract(1, 'h'))) {
 						// Give one hour leeway, then start counting down to the next one
 						timeDisplayed = timeDisplayed.add(1, 'd').hour(13);
 						isPredicted = true;
@@ -49,7 +50,7 @@
 			{#if loaded}
 				{#if typeof timeDisplayed !== 'undefined'}
 					<TimeDisplay bind:timeDisplayed />
-					<CountDown bind:timeDisplayed predicted="false" />
+					<CountDown bind:timeDisplayed predicted={isPredicted} />
 				{:else}
 					<h3>Hasn't been announced yet</h3>
 				{/if}
