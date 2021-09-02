@@ -16,6 +16,7 @@
 	let loaded = false;
 	$: isInPast = timeDisplayed.isBefore(dayjs().subtract(1, 'h'));
 	let liveVideoId;
+	let pastVideoIDs = [];
 
 	function sleep(ms) {
 		return new Promise((resolve) => setTimeout(resolve, ms));
@@ -34,8 +35,13 @@
 				let liveVideoResp = await fetch(
 					'https://covid-announcement-backend.host.qrl.nz/api/get-youtube-live'
 				);
+				let historicVideoResp = await fetch(
+					'https://covid-announcement-backend.host.qrl.nz/api/get-historic-youtube-live'
+				);
 				let nextTime = await nextTimeResp.json();
 				let liveVideo = await liveVideoResp.json();
+				let pastVideos = await historicVideoResp.json();
+				pastVideoIDs = pastVideos['youtube_video_ids'];
 				const timeLeft = minLoadingTime.getTime() - Date.now();
 				if (timeLeft > 0) {
 					await sleep(timeLeft);
@@ -91,9 +97,9 @@
 		<div class="more">
 			{#if !isInPast}<h3>Previous updates</h3>{/if}
 			<div class="gallery">
-				<YouTube videoId="51i1jEFFWv8" />
-				<YouTube videoId="51i1jEFFWv8" />
-				<YouTube videoId="51i1jEFFWv8" />
+				{#each pastVideoIDs as id}
+					<YouTube videoId={id} />
+				{/each}
 			</div>
 		</div>
 	</div>
