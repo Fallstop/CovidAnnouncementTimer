@@ -90,6 +90,12 @@
 			{:else}
 				<BarLoader size="5" color="currentColor" unit="em" duration="1s" />
 			{/if}
+			<p>
+				Looking for the NZ COVID daily update? We are too. By our estimates, the next update will be
+				at {timeDisplayed.format('h:mm A')}, {timeDisplayed.fromNow()}. Until then, browse through
+				the previous updates below, or keep the tab open and we'll pull up the Ministry of Health's
+				live stream as soon as it appears.
+			</p>
 			<div class="spacer" />
 		</div>
 	</main>
@@ -180,8 +186,13 @@
 				}
 			}
 
+			p {
+				max-width: 40em;
+				// margin: 0 1em;
+			}
+
 			.spacer {
-				padding-top: 17vh;
+				padding-top: 25vh;
 			}
 		}
 
@@ -218,6 +229,8 @@
 
 			footer {
 				margin-top: 5rem;
+				margin-left: 1em;
+				margin-right: 1em;
 				a {
 					color: #000d;
 					text-decoration: none;
@@ -238,8 +251,13 @@
 	@media (max-width: 750px) {
 		.content {
 			--social-distance: 2em;
+
+			h2,
+			p {
+				margin: 0;
+			}
 			main .spacer {
-				padding-top: 35vh;
+				padding-top: 40vh;
 			}
 		}
 		.content.loading {
