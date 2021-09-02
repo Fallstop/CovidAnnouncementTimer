@@ -23,8 +23,8 @@
 				console.log('Date pushed', body);
 				if (body['date_of_announcement'] !== null) {
 					timeDisplayed = dayjs(body['date_of_announcement']);
-					if (timeDisplayed.isBefore(dayjs().subtract(0, 'h'))) {
-						// Give three hour leeway, then start counting down to the next one
+					if (timeDisplayed.isBefore(dayjs().subtract(1, 'h'))) {
+						// Give one hour leeway, then start counting down to the next one
 						timeDisplayed = timeDisplayed.add(1, 'd').hour(13);
 						isPredicted = true;
 					}
