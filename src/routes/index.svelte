@@ -68,9 +68,12 @@
 	</main>
 	<div class="updates {liveVideoId ? 'live' : ''}">
 		<h3 class:invisible={!isInPast}>Previous updates</h3>
-		{#if liveVideoId || !loaded}
-			<YouTube size="lg" placeholder={!loaded} videoId={liveVideoId} />
-		{/if}
+		<YouTube
+			size="lg"
+			placeholder={!loaded || !liveVideoId}
+			videoId={liveVideoId}
+			enabled={liveVideoId || !loaded}
+		/>
 		<div class="more">
 			{#if !isInPast}<h3>Previous updates</h3>{/if}
 			<div class="gallery">
@@ -84,7 +87,7 @@
 
 <style lang="scss">
 	.content {
-		--social-distance: 4em;
+		--social-distance: 8em;
 
 		.frameOuter {
 			position: fixed;
@@ -162,7 +165,7 @@
 		}
 	}
 	.content.loading {
-		--social-distance: 16em;
+		--social-distance: 4em;
 	}
 	@media (max-width: 750px) {
 		main div {
