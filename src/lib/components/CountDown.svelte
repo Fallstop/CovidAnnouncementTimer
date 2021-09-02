@@ -6,7 +6,7 @@
 </script>
 
 <h2>
-	{timeDisplayed.fromNow()}{#if predicted}*{/if}
+	{timeDisplayed.fromNow()}{#if predicted}, probably{/if}
 </h2>
 
 <style lang="scss">

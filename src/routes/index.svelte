@@ -44,9 +44,6 @@
 			{#if typeof timeDisplayed !== 'undefined'}
 				<TimeDisplay bind:timeDisplayed />
 				<CountDown bind:timeDisplayed predicted="false" />
-				{#if isPredicted}
-					<p>*Predicted</p>
-				{/if}
 			{:else}
 				<h3>Hasn't been announced yet</h3>
 			{/if}
