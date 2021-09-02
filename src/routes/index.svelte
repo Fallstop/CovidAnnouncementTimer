@@ -64,7 +64,7 @@
 		overflow: hidden;
 		margin: 0;
 		padding: 0;
-		background: repeating-linear-gradient(45deg, #ffcc00, #ffcc00 50px, #ffff 50px, #ffff 100px);
+		background: repeating-linear-gradient(-45deg, #ffcc00, #ffcc00 50px, #ffff 50px, #ffff 100px);
 		div {
 			background: white;
 			width: calc(100vw - var(--social-distance));
