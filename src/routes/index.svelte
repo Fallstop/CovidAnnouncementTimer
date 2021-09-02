@@ -38,7 +38,7 @@
 	});
 </script>
 
-<main>
+<main class:loading={!loaded}>
 	<div>
 		{#if loaded}
 			{#if typeof timeDisplayed !== 'undefined'}
@@ -58,6 +58,7 @@
 
 <style lang="scss">
 	main {
+		--social-distance: 2em;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -69,14 +70,18 @@
 		background: repeating-linear-gradient(45deg, #ffcc00, #ffcc00 50px, #ffff 50px, #ffff 100px);
 		div {
 			background: white;
-			width: 80%;
-			height: 60vh;
+			width: calc(100vw - var(--social-distance));
+			height: calc(100vh - var(--social-distance));
+			transition: 0.4s ease width, 0.4s ease height;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 			justify-content: center;
 			text-align: center;
 		}
+	}
+	main.loading {
+		--social-distance: 8em;
 	}
 	@media (max-width: 750px) {
 		main div {
