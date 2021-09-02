@@ -14,17 +14,23 @@
 	let isPredicted = false;
 	let loaded = false;
 	$: isInPast = timeDisplayed.isBefore(dayjs().subtract(1, 'h'));
+	let liveVideoId;
 
 	onMount(() => {
 		(async () => {
 			try {
-				let response = await fetch(
+				let nextTimeResp = await fetch(
 					'https://covid-announcement-backend.host.qrl.nz/api/get-announcement-time'
 				);
-				let body = await response.json();
-				console.log('Date pushed', body);
-				if (body['date_of_announcement'] !== null) {
-					timeDisplayed = dayjs(body['date_of_announcement']);
+				let liveVideoResp = await fetch(
+					'https://covid-announcement-backend.host.qrl.nz/api/get_youtube_live'
+				);
+				let nextTime = await nextTimeResp.json();
+				let liveVideo = await liveVideoResp.json();
+				liveVideoId = liveVideo['youtube_video_id'];
+				console.log('Date pushed', nextTime);
+				if (nextTime['date_of_announcement'] !== null) {
+					timeDisplayed = dayjs(nextTime['date_of_announcement']);
 					// Can't use reactive variable because updates are batched
 					if (timeDisplayed.isBefore(dayjs().subtract(1, 'h'))) {
 						// Give one hour leeway, then start counting down to the next one
@@ -60,9 +66,11 @@
 			<div class="spacer" />
 		</div>
 	</main>
-	<div class="updates">
+	<div class="updates {liveVideoId ? 'live' : ''}">
 		<h3 class:invisible={!isInPast}>Previous updates</h3>
-		<YouTube size="lg" videoId="51i1jEFFWv8" />
+		{#if liveVideoId || !loaded}
+			<YouTube size="lg" placeholder={!loaded} videoId={liveVideoId} />
+		{/if}
 		<div class="more">
 			{#if !isInPast}<h3>Previous updates</h3>{/if}
 			<div class="gallery">
@@ -124,7 +132,7 @@
 		.updates {
 			position: relative;
 			z-index: 10;
-			margin-top: -35rem;
+			margin-top: -40rem;
 			text-align: center;
 			background: linear-gradient(to bottom, transparent 0, white 30em);
 			padding-bottom: 5rem;
@@ -137,15 +145,17 @@
 				visibility: hidden;
 			}
 
-			.more {
+			.more.live {
 				padding-top: var(--social-distance);
+			}
+			.more {
 				.gallery {
 					display: flex;
 					align-items: center;
 					flex-wrap: wrap;
 					row-gap: 2em;
 					column-gap: 2em;
-					max-width: 66rem;
+					max-width: 62rem;
 					margin: auto;
 				}
 			}
