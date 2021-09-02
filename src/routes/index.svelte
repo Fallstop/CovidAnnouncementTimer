@@ -49,9 +49,15 @@
 				timeDisplayed = dayjs(nextTime['date_of_announcement']);
 				// Can't use reactive variable because updates are batched
 				if (timeDisplayed.isBefore(dayjs().subtract(1, 'h'))) {
-					// Give one hour leeway, then start counting down to the next one
-					timeDisplayed = timeDisplayed.add(1, 'd').hour(13);
-					isPredicted = true;
+					// Try to add a day to the last found time, but if that's in the past then we'll need to give up
+					if (!timeDisplayed.add(1, 'd').hour(13).isBefore(dayjs().subtract(1, 'h'))) {
+						// Nope, we're good. Give one hour leeway, then start counting down to the next one
+						timeDisplayed = timeDisplayed.add(1, 'd').hour(13);
+						isPredicted = true;
+					} else {
+						// Uh oh! Our predicted time was wrong, so either the folks at MoH skipped a day or we're a bit lost.
+						console.log("Tried to add a day and predict the next one, but it wasn't enough!");
+					}
 				}
 				loaded = true;
 			}
@@ -100,7 +106,6 @@
 		</div>
 	</main>
 	<div class="updates {liveVideoId ? 'live' : ''}">
-		<h3 class:invisible={!isInPast}>Previous updates</h3>
 		<h3 class:invisible={!liveVideoId && loaded}>Live update:</h3>
 		<YouTube
 			size="lg"
@@ -110,7 +115,7 @@
 			autoplay={true}
 		/>
 		<div class="more">
-			{#if !isInPast}<h3>Previous updates</h3>{/if}
+			<h3>Previous updates</h3>
 			<div class="gallery">
 				{#each pastVideoIDs as id}
 					<YouTube videoId={id} />
