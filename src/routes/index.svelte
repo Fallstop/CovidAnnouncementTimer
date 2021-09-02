@@ -23,51 +23,50 @@
 	}
 
 	async function loadData() {
-			try {
-				const minLoadingTime = new Date(Date.now() + 500);
-				let nextTimeResp = await fetch(
-					'https://covid-announcement-backend.host.qrl.nz/api/get-announcement-time'
-				);
-				let liveVideoResp = await fetch(
-					'https://covid-announcement-backend.host.qrl.nz/api/get-youtube-live'
-				);
-				
-				let historicVideoResp = await fetch(
-					'https://covid-announcement-backend.host.qrl.nz/api/get-historic-youtube-live'
-				);
-				let nextTime = await nextTimeResp.json();
-				let liveVideo = await liveVideoResp.json();
-				let pastVideos = await historicVideoResp.json();
-				pastVideoIDs = pastVideos['youtube_video_ids'];
-				const timeLeft = minLoadingTime.getTime() - Date.now();
-				if (timeLeft > 0) {
-					await sleep(timeLeft);
-				}
-				liveVideoId = liveVideo['youtube_video_id'];
-				console.log('Date pushed', nextTime);
-				if (nextTime['date_of_announcement'] !== null) {
-					timeDisplayed = dayjs(nextTime['date_of_announcement']);
-					// Can't use reactive variable because updates are batched
-					if (timeDisplayed.isBefore(dayjs().subtract(1, 'h'))) {
-						// Give one hour leeway, then start counting down to the next one
-						timeDisplayed = timeDisplayed.add(1, 'd').hour(13);
-						isPredicted = true;
-					}
-					loaded = true;
+		try {
+			const minLoadingTime = new Date(Date.now() + 500);
+			let nextTimeResp = await fetch(
+				'https://covid-announcement-backend.host.qrl.nz/api/get-announcement-time'
+			);
+			let liveVideoResp = await fetch(
+				'https://covid-announcement-backend.host.qrl.nz/api/get-youtube-live'
+			);
+
+			let historicVideoResp = await fetch(
+				'https://covid-announcement-backend.host.qrl.nz/api/get-historic-youtube-live'
+			);
+			let nextTime = await nextTimeResp.json();
+			let liveVideo = await liveVideoResp.json();
+			let pastVideos = await historicVideoResp.json();
+			pastVideoIDs = pastVideos['youtube_video_ids'];
+			const timeLeft = minLoadingTime.getTime() - Date.now();
+			if (timeLeft > 0) {
+				await sleep(timeLeft);
+			}
+			liveVideoId = liveVideo['youtube_video_id'];
+			console.log('Date pushed', nextTime);
+			if (nextTime['date_of_announcement'] !== null) {
+				timeDisplayed = dayjs(nextTime['date_of_announcement']);
+				// Can't use reactive variable because updates are batched
+				if (timeDisplayed.isBefore(dayjs().subtract(1, 'h'))) {
+					// Give one hour leeway, then start counting down to the next one
+					timeDisplayed = timeDisplayed.add(1, 'd').hour(13);
+					isPredicted = true;
 				}
 				loaded = true;
-			} catch (e) {
-				console.log('It shit itself', e);
 			}
+			loaded = true;
+		} catch (e) {
+			console.log('It shit itself', e);
 		}
+	}
 
 	onMount(() => {
 		// Fix issue with scroll position glitching on reload
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 		loadData();
 		// reload data once per second
-		setInterval(loadData,1000)
-		
+		setInterval(loadData, 1000);
 	});
 </script>
 
@@ -191,7 +190,7 @@
 			z-index: 10;
 			margin-top: -50vh;
 			text-align: center;
-			background: linear-gradient(to bottom, transparent 0, white 40vh);
+			background: linear-gradient(to bottom, #fff0 0, white 40vh);
 			padding-bottom: 1rem;
 
 			h3 {
