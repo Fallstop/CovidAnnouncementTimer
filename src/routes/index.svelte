@@ -107,6 +107,7 @@
 			placeholder={!loaded || !liveVideoId}
 			videoId={liveVideoId}
 			enabled={liveVideoId || !loaded}
+			autoplay={true}
 		/>
 		<div class="more">
 			{#if !isInPast}<h3>Previous updates</h3>{/if}

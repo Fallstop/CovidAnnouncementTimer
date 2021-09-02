@@ -5,6 +5,7 @@
 	export let size: 'lg' | 'md' | 'sm' = 'md';
 	export let placeholder: Boolean = false;
 	export let enabled: Boolean = true;
+	export let autoplay: Boolean = false;
 </script>
 
 <div class="container {size} {enabled ? '' : 'hidden'}">
@@ -15,11 +16,10 @@
 	{:else}
 		<iframe
 			title="COVID Update Live Stream"
-			id="ytplayer"
 			class="video"
-			type="text/html"
-			src="https://www.youtube.com/embed/{videoId}"
+			src="https://www.youtube.com/embed/{videoId}?autoplay={autoplay ? '1' : '0'}"
 			frameborder="0"
+			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 			allowfullscreen
 		/>
 	{/if}
