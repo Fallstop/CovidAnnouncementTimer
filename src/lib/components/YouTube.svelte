@@ -37,7 +37,7 @@
 		width: var(--width-size);
 		height: calc(var(--width-size) * 0.5625);
 		border-radius: 0.4em;
-		box-shadow: 0 0.3em 8px -8px rgb(35 35 35 / 65%), 0 7px 20px -8px #ffcc009e;
+		box-shadow: 0 0.3em 8px -8px rgb(35 35 35 / 65%), 0 7px 20px -8px #0000004e;
 		background: radial-gradient(farthest-corner at 30% 0, #272727, black);
 		transition: opacity 0.5s ease, height 0.6s ease;
 	}
