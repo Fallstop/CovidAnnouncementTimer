@@ -174,7 +174,6 @@
 			.more {
 				.gallery {
 					display: flex;
-					justify-content: center;
 					flex-wrap: wrap;
 					row-gap: 2em;
 					column-gap: 2em;
