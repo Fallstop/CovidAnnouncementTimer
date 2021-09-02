@@ -66,6 +66,10 @@
 	});
 </script>
 
+<svelte:head>
+	<title>Daily Update</title>
+</svelte:head>
+
 <div class="content" class:loading={!loaded}>
 	<div class="frameOuter">
 		<div class="frameInner" />
@@ -186,7 +190,7 @@
 			z-index: 10;
 			margin-top: -50vh;
 			text-align: center;
-			background: linear-gradient(to bottom, transparent 0, white 30em);
+			background: linear-gradient(to bottom, transparent 0, white 40vh);
 			padding-bottom: 1rem;
 
 			h3 {
@@ -233,13 +237,13 @@
 	}
 	@media (max-width: 750px) {
 		.content {
-			--social-distance: 1.5em;
+			--social-distance: 2em;
 			main .spacer {
 				padding-top: 35vh;
 			}
 		}
 		.content.loading {
-			--social-distance: 3em;
+			--social-distance: 1em;
 		}
 
 		.gallery {
