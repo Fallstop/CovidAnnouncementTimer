@@ -22,6 +22,9 @@
 	}
 
 	onMount(() => {
+		// Fix issue with scroll position glitching on reload
+		document.body.scrollTop = document.documentElement.scrollTop = 0;
+
 		(async () => {
 			try {
 				const minLoadingTime = new Date(Date.now() + 500);
@@ -78,7 +81,7 @@
 	</main>
 	<div class="updates {liveVideoId ? 'live' : ''}">
 		<h3 class:invisible={!isInPast}>Previous updates</h3>
-		<h3 class:invisible={isInPast}>Live update:</h3>
+		<h3 class:invisible={!liveVideoId && loaded}>Live update:</h3>
 		<YouTube
 			size="lg"
 			placeholder={!loaded || !liveVideoId}
