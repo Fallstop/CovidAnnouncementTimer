@@ -148,7 +148,7 @@
 			}
 
 			.spacer {
-				padding-top: 25em;
+				padding-top: 15em;
 			}
 		}
 

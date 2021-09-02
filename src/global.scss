@@ -1,15 +1,14 @@
-body {
-    font-family: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
-    color: #444444;
-    margin: 0;
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600&display=swap');
 
+body {
+	font-family: 'Baloo 2', Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
+	color: #444444;
+	margin: 0;
 }
 * {
-    box-sizing: border-box;
-
+	box-sizing: border-box;
 }
 
 .mono {
-    font-family: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
-
+	font-family: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
 }

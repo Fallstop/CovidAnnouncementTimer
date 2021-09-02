@@ -6,14 +6,14 @@
 </script>
 
 <h2>
-	{timeDisplayed.fromNow()}{#if predicted}, probably{/if}
+	({timeDisplayed.fromNow()}{#if predicted}, probably{/if})
 </h2>
 
 <style lang="scss">
 	h2 {
 		font-weight: 400;
 
-		font-size: 5rem;
+		font-size: 4rem;
 	}
 	@media (max-width: 750px) {
 		h2 {
