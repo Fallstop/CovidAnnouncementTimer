@@ -22,11 +22,7 @@
 		return new Promise((resolve) => setTimeout(resolve, ms));
 	}
 
-	onMount(() => {
-		// Fix issue with scroll position glitching on reload
-		document.body.scrollTop = document.documentElement.scrollTop = 0;
-
-		(async () => {
+	async function loadData() {
 			try {
 				const minLoadingTime = new Date(Date.now() + 500);
 				let nextTimeResp = await fetch(
@@ -35,6 +31,7 @@
 				let liveVideoResp = await fetch(
 					'https://covid-announcement-backend.host.qrl.nz/api/get-youtube-live'
 				);
+				
 				let historicVideoResp = await fetch(
 					'https://covid-announcement-backend.host.qrl.nz/api/get-historic-youtube-live'
 				);
@@ -62,7 +59,15 @@
 			} catch (e) {
 				console.log('It shit itself', e);
 			}
-		})();
+		}
+
+	onMount(() => {
+		// Fix issue with scroll position glitching on reload
+		document.body.scrollTop = document.documentElement.scrollTop = 0;
+		loadData();
+		// reload data once per second
+		setInterval(loadData,1000)
+		
 	});
 </script>
 
