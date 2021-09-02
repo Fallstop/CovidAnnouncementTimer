@@ -65,8 +65,8 @@
 		// Fix issue with scroll position glitching on reload
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 		loadData();
-		// reload data once per second
-		setInterval(loadData, 1000);
+		// reload data once per 5 seconds
+		setInterval(loadData, 5000);
 	});
 </script>
 
