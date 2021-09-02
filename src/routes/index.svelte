@@ -66,6 +66,10 @@
 	});
 </script>
 
+<svelte:head>
+	<title>Daily Update</title>
+</svelte:head>
+
 <div class="content" class:loading={!loaded}>
 	<div class="frameOuter">
 		<div class="frameInner" />
