@@ -1,0 +1,9 @@
+{
+    "name": "Daily Update Livestream",
+    "short_name": "Daily Update",
+    "theme_color": "#ffcc00",
+    "background_color": "#ffcc00",
+    "display": "standalone",
+    "scope": "/",
+    "start_url": "/"
+}
