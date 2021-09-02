@@ -102,6 +102,16 @@
 				{/each}
 			</div>
 		</div>
+		<footer>
+			<p>
+				This project was developed by
+				<a href="https://jmw.nz/">Jasper</a>
+				&amp;
+				<a href="https://zac.nz/">Zac</a>
+				through
+				<a href="https://qrl.nz/">Questionable Research Labs </a>
+			</p>
+		</footer>
 	</div>
 </div>
 
@@ -158,7 +168,7 @@
 			margin-top: -40rem;
 			text-align: center;
 			background: linear-gradient(to bottom, transparent 0, white 30em);
-			padding-bottom: 5rem;
+			padding-bottom: 1rem;
 
 			h3 {
 				font-size: 2em;
@@ -175,10 +185,19 @@
 				.gallery {
 					display: flex;
 					flex-wrap: wrap;
-					row-gap: 2em;
-					column-gap: 2em;
+					row-gap: 2rem;
+					column-gap: 2rem;
 					max-width: 62rem;
 					margin: auto;
+				}
+			}
+
+			footer {
+				margin-top: 5rem;
+				a {
+					color: #000d;
+					text-decoration: none;
+					font-weight: bold;
 				}
 			}
 		}
