@@ -8,6 +8,7 @@
 	import YouTube from '$lib/components/YouTube.svelte';
 
 	import { onMount } from 'svelte';
+	import { debug } from 'svelte/internal';
 	dayjs.extend(relativeTime);
 
 	let timeDisplayed = dayjs();
@@ -16,17 +17,26 @@
 	$: isInPast = timeDisplayed.isBefore(dayjs().subtract(1, 'h'));
 	let liveVideoId;
 
+	function sleep(ms) {
+		return new Promise((resolve) => setTimeout(resolve, ms));
+	}
+
 	onMount(() => {
 		(async () => {
 			try {
+				const minLoadingTime = new Date(Date.now() + 500);
 				let nextTimeResp = await fetch(
 					'https://covid-announcement-backend.host.qrl.nz/api/get-announcement-time'
 				);
 				let liveVideoResp = await fetch(
-					'https://covid-announcement-backend.host.qrl.nz/api/get_youtube_live'
+					'https://covid-announcement-backend.host.qrl.nz/api/get-youtube-live'
 				);
 				let nextTime = await nextTimeResp.json();
 				let liveVideo = await liveVideoResp.json();
+				const timeLeft = minLoadingTime.getTime() - Date.now();
+				if (timeLeft > 0) {
+					await sleep(timeLeft);
+				}
 				liveVideoId = liveVideo['youtube_video_id'];
 				console.log('Date pushed', nextTime);
 				if (nextTime['date_of_announcement'] !== null) {
@@ -68,6 +78,7 @@
 	</main>
 	<div class="updates {liveVideoId ? 'live' : ''}">
 		<h3 class:invisible={!isInPast}>Previous updates</h3>
+		<h3 class:invisible={isInPast}>Live update:</h3>
 		<YouTube
 			size="lg"
 			placeholder={!loaded || !liveVideoId}
