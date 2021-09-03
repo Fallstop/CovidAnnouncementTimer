@@ -65,6 +65,14 @@
 					}
 				}
 				loaded = true;
+			} else {
+				// Things went wrong, let's start assuming
+				timeDisplayed = dayjs().hour(13).minute(0).second(0);
+				if (timeDisplayed.isBefore(dayjs().subtract(1, 'h'))) {
+					timeDisplayed = timeDisplayed.add(1, 'd');
+					isPredicted = true;
+				}
+				isPredicted = true;
 			}
 			loaded = true;
 		} catch (e) {
@@ -105,11 +113,11 @@
 			{/if}
 			<p>
 				Looking for the NZ COVID daily update? We are too. By our estimates, the next update will be
-				at {timeDisplayed.format('h:mm A')}, {timeDisplayed.fromNow()}. Until then
+				at {timeDisplayed.format('h:mm A')}, {timeDisplayed.fromNow()}. Until then,
 				{#if anyPastVideos}
-					, browse through the previous updates below, or keep the tab open and we'll pull up the
-					Ministry of Health's live stream as soon as it appears.
+					browse through the previous updates below, or
 				{/if}
+				keep the tab open and we'll pull up the Ministry of Health's live stream as soon as it appears.
 			</p>
 			<div class="spacer" />
 		</div>
