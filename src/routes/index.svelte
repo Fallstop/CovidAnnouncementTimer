@@ -66,6 +66,9 @@
 				}
 				loaded = true;
 			} else {
+				console.error(
+					'Warning: Backend API is unstable or down! Loading up some strong assumptions'
+				);
 				// Things went wrong, let's start assuming
 				timeDisplayed = dayjs().hour(13).minute(0).second(0);
 				if (timeDisplayed.isBefore(dayjs().subtract(1, 'h'))) {
