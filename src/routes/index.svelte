@@ -19,6 +19,10 @@
 	let pastVideoIDs = [];
 	let anyPastVideos = true;
 
+	let backendServerAddress = "https://covid-announcement-backend.host.qrl.nz/api/";
+	// let backendServerAddress = "http://localhost:8000/api/";
+
+
 	function sleep(ms) {
 		return new Promise((resolve) => setTimeout(resolve, ms));
 	}
@@ -27,14 +31,14 @@
 		try {
 			const minLoadingTime = new Date(Date.now() + 500);
 			let nextTimeResp = await fetch(
-				'https://covid-announcement-backend.host.qrl.nz/api/get-announcement-time'
+				backendServerAddress+'get-announcement-time'
 			);
 			let liveVideoResp = await fetch(
-				'https://covid-announcement-backend.host.qrl.nz/api/get-youtube-live'
+				backendServerAddress+'get-youtube-live'
 			);
 
 			let historicVideoResp = await fetch(
-				'https://covid-announcement-backend.host.qrl.nz/api/get-historic-youtube-live'
+				backendServerAddress+'get-historic-youtube-live'
 			);
 			let nextTime = await nextTimeResp.json();
 			let liveVideo = await liveVideoResp.json();
@@ -138,9 +142,13 @@
 			{#if anyPastVideos}
 				<h3>Previous updates</h3>
 				<div class="gallery">
-					{#each pastVideoIDs as id}
-						{#if id !== null}
-							<YouTube videoId={id} />
+					{#each pastVideoIDs as data}
+						{#if data !== null}
+						<div class="youtubeVideoWrapper">
+							<h4>{dayjs(data[0]).format("dddd['s update], DD MMMM")}</h4>
+							<YouTube videoId={data[1]} />
+						</div>
+							
 						{/if}
 					{/each}
 				</div>
@@ -254,6 +262,9 @@
 					column-gap: 2rem;
 					max-width: 62rem;
 					margin: auto;
+					h4 {
+						font-size: 1.25rem;
+					}
 				}
 			}
 
